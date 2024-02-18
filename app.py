@@ -1,41 +1,73 @@
-from flask import Flask, render_template, request, redirect, url_for
-from flask_sqlalchemy import SQLAlchemy
-import os
+import sqlite3
+from flask import Flask, request, render_template, redirect, url_for
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///resumes.db'
-db = SQLAlchemy(app)
 
-class Resume(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    filename = db.Column(db.String(100), nullable=False)
+# Function to create a connection to the SQLite database
+def create_connection(db_file):
+    conn = None
+    try:
+        conn = sqlite3.connect(db_file)
+        print(f"Connected to {db_file}")
+        return conn
+    except sqlite3.Error as e:
+        print(e)
 
-@app.route('/')
-def index():
-    resumes = Resume.query.all()
-    return render_template('index.html', resumes=resumes)
+    return conn
 
-@app.route('/upload', methods=['POST'])
-def upload():
-    if 'resume' in request.files:
-        resume = request.files['resume']
+# Create a new SQLite database if not exists
+def create_table(conn):
+    create_table_sql = """
+    CREATE TABLE IF NOT EXISTS users (
+        id INTEGER PRIMARY KEY,
+        username TEXT NOT NULL,
+        password TEXT NOT NULL
+    );
+    """
 
-        if resume.filename != '':
-            # Save the uploaded resume to the "uploads" folder
-            upload_folder = 'uploads'
-            if not os.path.exists(upload_folder):
-                os.makedirs(upload_folder)
+    try:
+        c = conn.cursor()
+        c.execute(create_table_sql)
+    except sqlite3.Error as e:
+        print(e)
 
-            resume_path = os.path.join(upload_folder, resume.filename)
-            resume.save(resume_path)
+# Route for signup page
+@app.route('/signup', methods=['GET', 'POST'])
+def signup():
+    if request.method == 'POST':
+        
+        username = request.form['username']
+        password = request.form['password']
+        email = request.form['email']
 
-            # Save the resume information to the database
-            new_resume = Resume(filename=resume.filename)
-            db.session.add(new_resume)
-            db.session.commit()
+        conn = create_connection('database.db')
+        with conn:
+            cursor = conn.cursor()
+            cursor.execute("INSERT INTO users (username, password) VALUES (?, ?)", (email, password))
+            conn.commit()
+            return redirect(url_for('login'))
+    return render_template('signup.html')
 
-    return redirect(url_for('index'))
+# Route for login page
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if request.method == 'POST':
+        email = request.form['email']
+        password = request.form['password']
+
+        conn = create_connection('database.db')
+        with conn:
+            cursor = conn.cursor()
+            cursor.execute("SELECT * FROM users WHERE username=? AND password=?", (email , password))
+            user = cursor.fetchone()
+            if user:
+                return "Login successful!"
+            else:
+                return "Invalid email or password. Please try again."
+
+    return render_template('login.html')
 
 if __name__ == '__main__':
-    db.create_all()
+    conn = create_connection('database.db')
+    create_table(conn)
     app.run(debug=True)
