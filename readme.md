@@ -33,10 +33,8 @@ This project implements a machine learning model capable of classifying the doma
 ![WhatsApp Image 2024-02-19 at 4 27 15 PM](https://github.com/Bayyana-kiran/TalentSync/assets/99533113/54e7b8dc-2ed1-4643-8ff7-abc4a2d050d0)
 
 
-
-
-
 ### Explaination of Output: 
+The output of this project provides a summary of the information extracted from a resume. It includes a list of skills, organizations, and educational background found in the resume. Additionally, the output indicates the category that best matches the resume, helping users understand the type of job or role the applicant may be suitable for. The interactive visualizations further enhance the understanding of the resume by presenting the extracted information in a more accessible and engaging format, making it easier for users to analyze and evaluate resumes effectively.
 
 
 
