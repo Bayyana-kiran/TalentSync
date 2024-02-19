@@ -1,0 +1,58 @@
+<!-- templates/view_files.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Uploaded Files</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <style>
+        /* static/styles.css */
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 800px;
+    margin: 20px auto;
+    background-color: #fff;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    color: #333;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+li {
+    margin-bottom: 10px;
+    background-color: #e0e0e0;
+    padding: 10px;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+/* Add more styling as needed */
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Uploaded Files</h1>
+        <ul>
+            {% for file in files %}
+                <li>{{ file.id }} - {{ file.filename }} (User ID: {{ file.user_id }})</li>
+            {% endfor %}
+        </ul>
+    </div>
+</body>
+</html>
