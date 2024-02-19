@@ -1,46 +1,3 @@
-import sqlite3
-from flask import Flask, request, render_template, redirect, url_for
-
-app = Flask(__name__)
-
-# Function to create a connection to the SQLite database
-def create_connection(db_file):
-    conn = None
-    try:
-        conn = sqlite3.connect(db_file)
-        print(f"Connected to {db_file}")
-        return conn
-    except sqlite3.Error as e:
-        print(e)
-
-    return conn
-
-# Create a new SQLite database if not exists
-def create_table(conn):
-    create_table_sql = """
-    CREATE TABLE IF NOT EXISTS users (
-        id INTEGER PRIMARY KEY,
-        username TEXT NOT NULL,
-        password TEXT NOT NULL
-    );
-    """
-
-    try:
-        c = conn.cursor()
-        c.execute(create_table_sql)
-    except sqlite3.Error as e:
-        print(e)
-
-
-# Route for home page
-@app.route('/')
-def index():
-    return render_template('index.html')
-
-
-
-
-# Route for signup page
 @app.route('/signup', methods=['GET', 'POST'])
 def signup():
     if request.method == 'POST':
@@ -75,8 +32,3 @@ def login():
                 return "Invalid email or password. Please try again."
 
     return render_template('login.html')
-
-if __name__ == '__main__':
-    conn = create_connection('database.db')
-    create_table(conn)
-    app.run(debug=True)

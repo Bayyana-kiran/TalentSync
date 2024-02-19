@@ -8,11 +8,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <!-- All Plugin Css -->
-    <link rel="stylesheet" href="css/plugins.css" />
-
-    <!-- Style & Common Css -->
-    <link rel="stylesheet" href="css/common.css" />
-    <link rel="stylesheet" href="css/main.css" />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/plugins.css') }}"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/common.css') }}"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/main.css') }}"
+    />
   </head>
 
   <body>
@@ -30,7 +37,10 @@
             <i class="fa fa-bars"></i>
           </button>
           <a class="navbar-brand" href="index.html"
-            ><img src="img/logo.png" class="logo" alt=""
+            ><img
+              src="{{ url_for('static', filename='logo.png') }}"
+              class="logo"
+              alt=""
           /></a>
         </div>
         <!-- End Header Navigation -->
@@ -42,8 +52,8 @@
             data-in="fadeInDown"
             data-out="fadeOutUp"
           >
-            <li><a href="index.html">Home</a></li>
-            <li><a href="login.html">Login</a></li>
+            <li><a href="\">Home</a></li>
+            <li><a href="{{ url_for('login') }}">Login</a></li>
             <li><a href="companies.html">Companies</a></li>
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown"
@@ -71,30 +81,31 @@
     <section class="login-wrapper">
       <div class="container">
         <div class="col-md-6 col-sm-8 col-md-offset-3 col-sm-offset-2">
-          <form id="loginForm">
-            <img class="img-responsive" alt="logo" src="img/logo.png" />
+          <form method="POST" action="/signup">
             <input
               type="text"
               class="form-control input-lg"
               placeholder="User Name"
+              name="username"
             />
-            <input
-              type="email"
-              class="form-control input-lg"
-              placeholder="gmail"
-            />
+            <input type="email" name="email" placeholder="Email" required />
             <input
               type="password"
               class="form-control input-lg"
               placeholder="Password"
+              name="password"
             />
             <input
               type="password"
               class="form-control input-lg"
-              placeholder="Conform Password"
+              placeholder="Confirm Password"
+              name="confirm_password"
             />
             <button type="submit" class="btn btn-primary">Sign Up</button>
-            <p>Had an Account <a href="login.html">Login</a></p>
+            <p>
+              Already have an account?
+              <a href="{{ url_for('login') }}">Login</a>
+            </p>
           </form>
           <div>
             <button onclick="signInWithGoogle()" class="btn btn-danger">
@@ -181,10 +192,11 @@
       </div>
     </footer>
 
-    <script type="text/javascript" src="js/jquery.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="js/owl.carousel.min.js"></script>
-    <script src="js/bootsnav.js"></script>
-    <script src="js/main.js"></script>
+   <script type="text/javascript" src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='js/owl.carousel.min.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='js/bootsnav.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='js/main.js') }}"></script>
+
   </body>
 </html>
