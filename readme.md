@@ -55,21 +55,13 @@ The output of this project provides a summary of the information extracted from 
 The images display the level of accuracy of the machine learning model in identifying the personality traits. The accuracy level of the Machine learning model can increased further as it's used for more prediction tasks. The machine learning model gives the probability levels of each personality trait for a person. For example, in the output, if the openness probability is 73.27 then the person is 73.27% open to new experiences.
 
 
-## Compatibility for future Tech Stack:
+## Compatibility for future Tech Stack & Explaination of Output:
+
+Our resume analyzer, built using Python, is a sophisticated tool designed to streamline the hiring process by efficiently evaluating job applicants' resumes and determining their compatibility with specific tech stacks. Leveraging advanced natural language processing (NLP) techniques, our system parses through resumes to extract key information such as skills, experience, and education. It then utilizes machine learning algorithms to analyze this data against predefined criteria for various tech stacks, providing employers with insightful compatibility scores for each applicant. By automating this process, our tool empowers recruiters to quickly identify promising candidates, saving time and resources while ensuring a more effective hiring decision-making process
 
 
-### Output:
-
-### Explaination of Output:
-
-
-
-
-
-
-
-
-
+### Output :
+![WhatsApp Image 2024-02-19 at 5 04 21 PM](https://github.com/Bayyana-kiran/TalentSync/assets/99533113/7a119f8d-bcc2-423f-a6bf-640726a4330e)
 
 
 ## Dependencies:
